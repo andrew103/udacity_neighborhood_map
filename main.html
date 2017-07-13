@@ -14,34 +14,40 @@
             <h2>Locations in LA</h2>
           <button class="hamburger">&#9776;</button>
           <button class="cross">&#735;</button>
+
+          <div class="menu">
+            <ul>
+              <a href="#"><li>LINK ONE</li></a>
+              <a href="#"><li>LINK TWO</li></a>
+              <a href="#"><li>LINK THREE</li></a>
+              <a href="#"><li>LINK FOUR</li></a>
+              <a href="#"><li>LINK FIVE</li></a>
+            </ul>
+          </div>
         </header>
 
-        <div class="menu">
-          <ul>
-            <a href="#"><li>LINK ONE</li></a>
-            <a href="#"><li>LINK TWO</li></a>
-            <a href="#"><li>LINK THREE</li></a>
-            <a href="#"><li>LINK FOUR</li></a>
-            <a href="#"><li>LINK FIVE</li></a>
-          </ul>
-        </div>
         <!-- END CODEPEN.IO CODE -->
 
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-xs-8">
+                <div class="col-lg-3 col-xs-8 marker_list">
+                    <form class="search_filter" action="index.html" method="post">
+                        <input type="text" class="filter_param" placeholder="Keyword">
+                        <button type="button" class="btn btn-primary">Filter</button>
+                    </form>
 
+                    <!-- List locations here using <p> tags -->
                 </div>
-                <div class="col-lg-9 col-xs-4">
-
+                <div class="col-lg-9 col-xs-4" id="map">
+                    <!-- Map area -->
                 </div>
             </div>
         </div>
 
 
 
-        <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBDuAWPzOpexlOWOO14QERAiq7U188HcqM"></script>
+        <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBDuAWPzOpexlOWOO14QERAiq7U188HcqM&v=3&callback=initMap"></script>
         <script type="text/javascript" src="js/lib/jquery-3.2.1.js"></script>
         <script type="text/javascript" src="js/lib/knockout-3.4.2.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
