@@ -108,11 +108,10 @@ h2 {
 
 .filter_param {
     height: 34px;
-    width: 300px;
+    width: 70%;
     color: black;
 }
 
 #map {
-    height: 100%;
-    padding-top: 800px;
+    padding: 20%;
 }
