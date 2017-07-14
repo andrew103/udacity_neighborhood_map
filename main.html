@@ -35,9 +35,12 @@
                     <form class="search_filter" action="index.html" method="post">
                         <input type="text" class="filter_param" placeholder="Keyword">
                         <button type="button" class="btn btn-primary">Filter</button>
-                    </form>
+                    </form><br>
 
-                    <!-- List locations here using <p> tags -->
+                    <div data-bind="foreach: listMarkers">
+                        <p class='list_element'><a class='element_link' id="" data-bind="text: title, click: $parent.showSpecific, attr: {id, id}"></a></p>
+                    </div>
+                    <a data-bind="click: removeFilter">See All</a>
                 </div>
                 <div class="col-md-9 col-xs-6" id="map">
                     <!-- Map area -->
