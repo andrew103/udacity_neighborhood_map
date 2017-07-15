@@ -64,11 +64,10 @@ function initMap() {
     });
   }
 
-  showListings(markers);
-//   populateMarkerList(markers);
+  showListings(markers, map);
 }
 
-function showListings(points) {
+function showListings(points, map) {
   // var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
 
@@ -102,20 +101,43 @@ var ViewModel = function() {
 
     var self = this;
 
+    this.listLocations = ko.observableArray([]);
     this.listMarkers = ko.observableArray([]);
 
-    locations.forEach(function(point_location) {
-        self.listMarkers.push(new Marker(point_location));
-    });
 
+    this.showAll = function() {
+        locations.forEach(function(point_location) {
+            self.listLocations.push(new Marker(point_location));
+        });
+        markers.forEach(function(point) {
+            self.listMarkers.push(point);
+        });
+    }
 
     this.showSpecific = function(clicked_location) {
-        console.log(clicked_location.id());
+        self.resetList();
+        self.listLocations.push(clicked_location);
+        self.listMarkers.push(markers[clicked_location.id()]);
+        showListings(self.listMarkers(), map);
     }
 
     this.removeFilter = function() {
-        console.log("This will remove the filter being used");
+        self.resetList();
+        self.showAll();
+        showListings(self.listMarkers(), map);
     }
+
+    this.resetList = function() {
+        var i=0;
+        while (i < self.listLocations().length) {
+            self.listLocations().splice(i, 1);
+            self.listMarkers().splice(i, 1);
+        }
+        showListings(markers, null);
+    }
+
+
+    this.showAll();
 }
 
 ko.applyBindings(new ViewModel());

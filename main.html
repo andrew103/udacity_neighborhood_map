@@ -37,7 +37,7 @@
                         <button type="button" class="btn btn-primary">Filter</button>
                     </form><br>
 
-                    <div data-bind="foreach: listMarkers">
+                    <div data-bind="foreach: listLocations">
                         <p class='list_element'><a class='element_link' id="" data-bind="text: title, click: $parent.showSpecific, attr: {id, id}"></a></p>
                     </div>
                     <a data-bind="click: removeFilter">See All</a>
