@@ -7,7 +7,7 @@ var locations = [
   {title: 'Chinatown Homey Space', id: 5, location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
-var infocontent = `<div><button class="btn btn-default" id="wiki_btn">Wikipedia</button></div>`
+var infocontent = `<div><button class="btn btn-default" id="wiki_btn">Wikipedia</button></div>`;
 
 var map;
 var markers = [];
@@ -61,7 +61,7 @@ function populateInfoWindow(marker, infowindow) {
     // Clear the infowindow content to give the streetview time to load.
     infowindow.setContent("<p>"+marker.title+"</p>"+infocontent);
     infowindow.marker = marker;
-    linkWiki(marker.title)
+    linkWiki(marker.title);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
@@ -115,7 +115,7 @@ function makeMarkerIcon(markerColor) {
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(10, 34),
         scaledSize: new google.maps.Size(21,34)
-    }
+    };
     return markerImage;
 }
 
@@ -126,7 +126,7 @@ var Marker = function(location) {
     this.title = ko.observable(location.title);
     this.location = ko.observable(location.location);
     this.id = ko.observable(location.id);
-}
+};
 
 // ViewModel to connect the information about listings to the webpage view
 var ViewModel = function() {
@@ -146,14 +146,14 @@ var ViewModel = function() {
         markers.forEach(function(point) {
             self.listMarkers.push(point);
         });
-    }
+    };
 
     this.showSpecific = function(clicked_location) {
         self.resetList();
         self.listLocations.push(clicked_location);
         self.listMarkers.push(markers[clicked_location.id()]);
         showListings(self.listMarkers(), map);
-    }
+    };
 
     this.filterResults = function() {
         var filtered = [];
@@ -163,21 +163,21 @@ var ViewModel = function() {
                 filtered.push(self.listLocations()[i]);
             }
         }
-        self.resetList()
+        self.resetList();
 
-        for (var i = 0; i < filtered.length; i++) {
-            self.listLocations.push(filtered[i]);
-            self.listMarkers.push(markers[filtered[i].id()])
+        for (var j = 0; j < filtered.length; i++) {
+            self.listLocations.push(filtered[j]);
+            self.listMarkers.push(markers[filtered[j].id()]);
         }
 
         showListings(self.listMarkers(), map);
-    }
+    };
 
     this.removeFilter = function() {
         self.resetList();
         self.showAll();
         showListings(self.listMarkers(), map);
-    }
+    };
 
     this.resetList = function() {
         var i=0;
@@ -186,8 +186,8 @@ var ViewModel = function() {
             self.listMarkers().splice(i, 1);
         }
         showListings(markers, null);
-    }
-}
+    };
+};
 
 // Initializes the location listings and filtering elements of the webpage
 var vm = new ViewModel();
