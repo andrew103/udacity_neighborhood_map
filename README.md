@@ -13,4 +13,4 @@ KnockoutJS framework for JavaScript and the JQuery library.
 
 1) Download the project files to a directory of your choice
 2) Navigate to the project directory in your file explorer
-3) Open the `index.html` file in your browser
+3) Open the `main.html` file in your browser
