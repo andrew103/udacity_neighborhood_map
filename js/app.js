@@ -7,6 +7,8 @@ var locations = [
   {title: 'Chinatown Homey Space', id: 5, location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
+var infocontent = `<div><button class="btn btn-default" id="wiki_btn">Wikipedia</button></div>`
+
 var map;
 var markers = [];
 
@@ -55,8 +57,9 @@ function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     // Clear the infowindow content to give the streetview time to load.
-    infowindow.setContent(marker.title);
+    infowindow.setContent("<p>"+marker.title+"</p>"+infocontent);
     infowindow.marker = marker;
+    linkWiki(marker.title)
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
@@ -66,6 +69,27 @@ function populateInfoWindow(marker, infowindow) {
     // Open the infowindow on the correct marker.
     infowindow.open(map, marker);
   }
+}
+
+function linkWiki(name) {
+    var wikiURL = `http://en.wikipedia.org/w/api.php?action=opensearch&search=`+name+
+                    `&format=json&callback=wikiCallback`;
+
+    var wikiRequestTimeout = setTimeout(function(){
+        $("#wiki_btn").replaceWith("<p>Failed to get wikipedia resources</p>");
+    }, 8000);
+
+    $.ajax({
+        url: wikiURL,
+        dataType: "jsonp",
+        success: function(response) {
+            var articleName = response[0];
+            var url = 'http://en.wikipedia.org/wiki/' + articleName;
+            $("#wiki_btn").replaceWith('<a class="btn btn-default" href="'+url+'">Wikipedia</a>');
+
+            clearTimeout(wikiRequestTimeout);
+        }
+    });
 }
 
 
