@@ -12,6 +12,7 @@ var infocontent = `<div><button class="btn btn-default" id="wiki_btn">Wikipedia<
 var map;
 var markers = [];
 
+// Creates the Google map to be displayed on the webpage with markers and all
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         // My location: {lat: 34.0522, lng: -118.2437}
@@ -53,6 +54,7 @@ function initMap() {
   showListings(markers, map);
 }
 
+// Injects information to be displayed by a marker's InfoWindow
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
@@ -71,6 +73,7 @@ function populateInfoWindow(marker, infowindow) {
   }
 }
 
+// Makes a call to the Wikipedia API to retrieve the location's wiki article
 function linkWiki(name) {
     var wikiURL = `http://en.wikipedia.org/w/api.php?action=opensearch&search=`+name+
                     `&format=json&callback=wikiCallback`;
@@ -92,7 +95,7 @@ function linkWiki(name) {
     });
 }
 
-
+// Displays the locations on the map in the form of markers
 function showListings(points, map) {
   // var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
@@ -104,6 +107,7 @@ function showListings(points, map) {
   // map.fitBounds(bounds);
 }
 
+// Styles the markers used for each location
 function makeMarkerIcon(markerColor) {
     var markerImage = {
         url: 'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor + '|40|_|%E2%80%A2',
@@ -115,14 +119,16 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
+// START KNOCKOUTJS CODE
 
-
+// Model for use within the MVVM
 var Marker = function(location) {
     this.title = ko.observable(location.title);
     this.location = ko.observable(location.location);
     this.id = ko.observable(location.id);
 }
 
+// ViewModel to connect the information about listings to the webpage view
 var ViewModel = function() {
 
     var self = this;
@@ -183,5 +189,6 @@ var ViewModel = function() {
     }
 }
 
+// Initializes the location listings and filtering elements of the webpage
 var vm = new ViewModel();
 ko.applyBindings(vm);
