@@ -1,3 +1,5 @@
+/* jshint loopfunc: true */
+
 var locations = [
   {title: 'Park Ave Penthouse', id: 0, location: {lat: 40.7713024, lng: -73.9632393}},
   {title: 'Chelsea Loft', id: 1, location: {lat: 40.7444883, lng: -73.9949465}},
