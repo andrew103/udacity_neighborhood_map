@@ -167,7 +167,7 @@ var ViewModel = function() {
         }
         self.resetList();
 
-        for (var j = 0; j < filtered.length; i++) {
+        for (var j = 0; j < filtered.length; j++) {
             self.listLocations.push(filtered[j]);
             self.listMarkers.push(markers[filtered[j].id()]);
         }
