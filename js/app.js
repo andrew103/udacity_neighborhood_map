@@ -1,23 +1,3 @@
-// BEGIN CODEPEN.IO CODE
-
-$( ".cross" ).hide();
-$( ".menu" ).hide();
-$( ".hamburger" ).click(function() {
-$( ".menu" ).slideToggle( "slow", function() {
-$( ".hamburger" ).hide();
-$( ".cross" ).show();
-});
-});
-
-$( ".cross" ).click(function() {
-$( ".menu" ).slideToggle( "slow", function() {
-$( ".cross" ).hide();
-$( ".hamburger" ).show();
-});
-});
-
-// END CODEPEN.IO CODE
-
 var locations = [
   {title: 'Park Ave Penthouse', id: 0, location: {lat: 40.7713024, lng: -73.9632393}},
   {title: 'Chelsea Loft', id: 1, location: {lat: 40.7444883, lng: -73.9949465}},
@@ -64,6 +44,7 @@ function initMap() {
     });
   }
 
+  vm.showAll();
   showListings(markers, map);
 }
 
@@ -104,6 +85,8 @@ var ViewModel = function() {
     this.listLocations = ko.observableArray([]);
     this.listMarkers = ko.observableArray([]);
 
+    this.filterParam = ko.observable("");
+
 
     this.showAll = function() {
         locations.forEach(function(point_location) {
@@ -121,6 +104,24 @@ var ViewModel = function() {
         showListings(self.listMarkers(), map);
     }
 
+    this.filterResults = function() {
+        var filtered = [];
+        for (var i = 0; i < self.listMarkers().length; i++) {
+            var location_name = self.listLocations()[i].title().toLowerCase();
+            if (location_name.indexOf(self.filterParam().toLowerCase()) !== -1) {
+                filtered.push(self.listLocations()[i]);
+            }
+        }
+        self.resetList()
+
+        for (var i = 0; i < filtered.length; i++) {
+            self.listLocations.push(filtered[i]);
+            self.listMarkers.push(markers[filtered[i].id()])
+        }
+
+        showListings(self.listMarkers(), map);
+    }
+
     this.removeFilter = function() {
         self.resetList();
         self.showAll();
@@ -135,13 +136,10 @@ var ViewModel = function() {
         }
         showListings(markers, null);
     }
-
-
-    this.showAll();
 }
 
-ko.applyBindings(new ViewModel());
-
+var vm = new ViewModel();
+ko.applyBindings(vm);
 
 
 
