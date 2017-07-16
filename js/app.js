@@ -17,6 +17,9 @@ function initMap() {
       zoom: 11,
   });
 
+  var largeInfowindow = new google.maps.InfoWindow();
+
+
   var defaultIcon = makeMarkerIcon('0091ff');
   var highlightedIcon = makeMarkerIcon('FFFF24');
 
@@ -33,9 +36,9 @@ function initMap() {
 
     markers.push(marker);
 
-  //   marker.addListener('click', function() {
-  //     populateInfoWindow(this, largeInfowindow);
-  //   });
+    marker.addListener('click', function() {
+      populateInfoWindow(this, largeInfowindow);
+    });
     marker.addListener('mouseover', function() {
       this.setIcon(highlightedIcon);
     });
@@ -47,6 +50,24 @@ function initMap() {
   vm.showAll();
   showListings(markers, map);
 }
+
+function populateInfoWindow(marker, infowindow) {
+  // Check to make sure the infowindow is not already opened on this marker.
+  if (infowindow.marker != marker) {
+    // Clear the infowindow content to give the streetview time to load.
+    infowindow.setContent(marker.title);
+    infowindow.marker = marker;
+    // Make sure the marker property is cleared if the infowindow is closed.
+    infowindow.addListener('closeclick', function() {
+      infowindow.marker = null;
+    });
+    var streetViewService = new google.maps.StreetViewService();
+    var radius = 50;
+    // Open the infowindow on the correct marker.
+    infowindow.open(map, marker);
+  }
+}
+
 
 function showListings(points, map) {
   // var bounds = new google.maps.LatLngBounds();
