@@ -1,12 +1,12 @@
 /* jshint loopfunc: true */
 
 var locations = [
-  {title: 'Park Ave Penthouse', id: 0, location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', id: 1, location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', id: 2, location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', id: 3, location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', id: 4, location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', id: 5, location: {lat: 40.7180628, lng: -73.9961237}}
+  {title: 'Statue of Liberty', id: 0, location: {lat: 40.6892, lng: -74.0445}},
+  {title: 'Empire State Building', id: 1, location: {lat: 40.7484, lng: -73.9857}},
+  {title: 'Central Park', id: 2, location: {lat:40.7829, lng: -73.9654}},
+  {title: 'Rockefeller Center', id: 3, location: {lat: 40.7587, lng: -73.9787}},
+  {title: 'Brooklyn Bridge', id: 4, location: {lat: 40.7061, lng: -73.9969}},
+  {title: 'Times Square', id: 5, location: {lat: 40.7589, lng: -73.9851}}
 ];
 
 var map;
