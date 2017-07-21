@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <!-- This is where the filter input and location listing will be displayed -->
-                <div class="col-md-3 col-xs-6 marker_list">
+                <div class="col-md-3 col-xs-12 marker_list">
                     <!-- filter input -->
                     <form class="search_filter" action="index.html" method="post">
                         <input type="text" class="filter_param" placeholder="Keyword" data-bind="textInput: filterParam">
@@ -30,13 +30,13 @@
                     <a data-bind="click: removeFilter">See All</a>
                 </div>
                 <!-- This is where the Google map will be displayed -->
-                <div class="col-md-9 col-xs-6" id="map"></div>
+                <div class="col-md-9 col-xs-12" id="map"></div>
             </div>
         </div>
 
-        <script async defer src="http://maps.googleapis.com/maps/api/js?&key=AIzaSyBDuAWPzOpexlOWOO14QERAiq7U188HcqM&callback=initMap"></script>
         <script type="text/javascript" src="js/lib/jquery-3.2.1.js"></script>
         <script type="text/javascript" src="js/lib/knockout-3.4.2.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+        <script async defer src="http://maps.googleapis.com/maps/api/js?&key=AIzaSyBDuAWPzOpexlOWOO14QERAiq7U188HcqM&callback=initMap"></script>
     </body>
 </html>

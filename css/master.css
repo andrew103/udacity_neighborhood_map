@@ -48,6 +48,6 @@ a:hover {
 }
 
 #map {
-    padding: 20%;
+    height: 100vh;
     color: black;
 }
