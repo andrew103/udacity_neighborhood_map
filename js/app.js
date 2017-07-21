@@ -66,7 +66,7 @@ function toggleBounce(marker) {
     }
     else {
         if (currentMarker !== null) {
-            currentMarker.setAnimation(null)
+            currentMarker.setAnimation(null);
         }
         currentMarker = marker;
         marker.setAnimation(google.maps.Animation.BOUNCE);
