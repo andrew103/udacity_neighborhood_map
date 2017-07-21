@@ -12,6 +12,9 @@ var locations = [
 var infocontent = `<div><button class="btn btn-default" id="wiki_btn">Wikipedia</button></div>`;
 
 var map;
+var largeInfowindow;
+
+var currentMarker = null;
 var markers = [];
 
 // Creates the Google map to be displayed on the webpage with markers and all
@@ -22,7 +25,7 @@ function initMap() {
       zoom: 11,
   });
 
-  var largeInfowindow = new google.maps.InfoWindow();
+  largeInfowindow = new google.maps.InfoWindow();
 
 
   var defaultIcon = makeMarkerIcon('0091ff');
@@ -50,10 +53,26 @@ function initMap() {
     marker.addListener('mouseout', function() {
       this.setIcon(defaultIcon);
     });
+    marker.addListener('click', function() {
+        toggleBounce(this);
+    });
   }
 
   vm.showAll();
   showListings(markers, map);
+}
+
+function toggleBounce(marker) {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    }
+    else {
+        if (currentMarker !== null) {
+            currentMarker.setAnimation(null)
+        }
+        currentMarker = marker;
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
 }
 
 // Injects information to be displayed by a marker's InfoWindow
@@ -63,20 +82,27 @@ function populateInfoWindow(marker, infowindow) {
     // Clear the infowindow content to give the streetview time to load.
     infowindow.setContent("<p>"+marker.title+"</p>"+infocontent);
     infowindow.marker = marker;
-    linkWiki(marker.title);
+    linkWiki(marker.title, infowindow);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
+      if (marker.getAnimation() !== null) {
+          toggleBounce(marker);
+      }
     });
     var streetViewService = new google.maps.StreetViewService();
     var radius = 50;
     // Open the infowindow on the correct marker.
     infowindow.open(map, marker);
   }
+  else {
+      infowindow.marker = null;
+      infowindow.close();
+  }
 }
 
 // Makes a call to the Wikipedia API to retrieve the location's wiki article
-function linkWiki(name) {
+function linkWiki(name, infowindow) {
     var wikiURL = `http://en.wikipedia.org/w/api.php?action=opensearch&search=`+name+
                     `&format=json&callback=wikiCallback`;
 
@@ -154,6 +180,8 @@ var ViewModel = function() {
         self.resetList();
         self.listLocations.push(clicked_location);
         self.listMarkers.push(markers[clicked_location.id()]);
+        toggleBounce(markers[clicked_location.id()]);
+        populateInfoWindow(markers[clicked_location.id()],  largeInfowindow);
         showListings(self.listMarkers(), map);
     };
 
