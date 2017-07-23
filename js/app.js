@@ -1,5 +1,9 @@
 /* jshint loopfunc: true */
 
+function googleError() {
+    $('#map').html("<h2>Map could not be loaded</h2>");
+}
+
 var locations = [
   {title: 'Statue of Liberty', id: 0, location: {lat: 40.6892, lng: -74.0445}},
   {title: 'Empire State Building', id: 1, location: {lat: 40.7484, lng: -73.9857}},
@@ -77,6 +81,7 @@ function toggleBounce(marker) {
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
+    infowindow.setContent("Loading...")
     // Clear the infowindow content to give the streetview time to load.
     infowindow.marker = marker;
     linkWiki(marker.title, infowindow);
@@ -100,8 +105,7 @@ function populateInfoWindow(marker, infowindow) {
 
 // Makes a call to the Wikipedia API to retrieve the location's wiki article
 function linkWiki(name, infowindow) {
-    var wikiURL = `http://en.wikipedia.org/w/api.php?action=opensearch&search=`+name+
-                    `&format=json&callback=wikiCallback`;
+    var wikiURL = `http://en.wikipedia.org/w/api.php?action=opensearch&search=${name}&format=json&callback=wikiCallback`;
 
     var wikiRequestTimeout = setTimeout(function(){
         infowindow.setContent("<p>"+name+"</p><p>Failed to get wikipedia resources</p>");
@@ -114,8 +118,9 @@ function linkWiki(name, infowindow) {
             clearTimeout(wikiRequestTimeout);
 
             var articleName = response[0];
+            var articleSnippet = response[2][0];
             var url = 'http://en.wikipedia.org/wiki/' + articleName;
-            infowindow.setContent("<p>"+name+"</p><a class='btn btn-default' href='"+url+"'>Wikipedia</a>");
+            infowindow.setContent("<p>"+name+"</p><article>"+articleSnippet+"</article><a class='btn btn-default' href='"+url+"'>Wikipedia</a>");
         }
     });
 }
