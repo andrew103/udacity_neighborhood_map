@@ -81,7 +81,7 @@ function toggleBounce(marker) {
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
-    infowindow.setContent("Loading...")
+    infowindow.setContent("Loading...");
     // Clear the infowindow content to give the streetview time to load.
     infowindow.marker = marker;
     linkWiki(marker.title, infowindow);
