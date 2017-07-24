@@ -201,7 +201,6 @@ var ViewModel = function() {
             self.listLocations.push(filtered[j]);
             self.listMarkers.push(markers[filtered[j].id()]);
         }
-        console.log(self.listLocations())
 
         showListings(self.listMarkers(), map);
     };
@@ -213,8 +212,8 @@ var ViewModel = function() {
     };
 
     this.resetList = function() {
-        self.listLocations([])
-        self.listMarkers([])
+        self.listLocations([]);
+        self.listMarkers([]);
 
         showListings(markers, null);
     };
