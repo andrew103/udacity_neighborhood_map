@@ -1,7 +1,7 @@
 /* jshint loopfunc: true */
 
 function googleError() {
-    $('#map').html("<h2>Map could not be loaded</h2>");
+    $('#map').html("<h2 style='color: white'>Map could not be loaded</h2>");
 }
 
 var locations = [
@@ -201,6 +201,7 @@ var ViewModel = function() {
             self.listLocations.push(filtered[j]);
             self.listMarkers.push(markers[filtered[j].id()]);
         }
+        console.log(self.listLocations())
 
         showListings(self.listMarkers(), map);
     };
@@ -212,11 +213,9 @@ var ViewModel = function() {
     };
 
     this.resetList = function() {
-        var i=0;
-        while (i < self.listLocations().length) {
-            self.listLocations().splice(i, 1);
-            self.listMarkers().splice(i, 1);
-        }
+        self.listLocations([])
+        self.listMarkers([])
+
         showListings(markers, null);
     };
 };
